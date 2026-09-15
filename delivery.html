@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Условия доставки | Dark Essence</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header id="main-header">
+        <nav>
+            <ul>
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="about.html">О нас</a></li>
+                <li><a href="catalog-men.html">Мужская</a></li>
+                <li><a href="catalog-women.html">Женская</a></li>
+                <li><a href="pricing.html">Прайс</a></li>
+                <li><a href="brands.html">Бренды</a></li>
+                <li><a href="contact.html">Контакты</a></li>
+                <li><a href="delivery.html">Доставка</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <h1>Оплата и Доставка</h1>
+        <img src="images/delivery.jfif" alt="Доставка курьером">
+        <p>Мы осуществляем экспресс-доставку парфюмерии по всему Казахстану.</p>
+
+        <!-- Калькулятор доставки -->
+        <section class="card">
+            <h2>Проверить условия доставки в ваш город</h2>
+            <form id="delivery-calc-form" onsubmit="calculateDelivery(event)">
+                <div class="form-group">
+                    <label for="user-city">Введите ваш город:</label>
+                    <input type="text" id="user-city" placeholder="Например: Астана, Алматы, Шымкент..." required>
+                </div>
+                <button type="submit" class="btn">Рассчитать доставку</button>
+            </form>
+
+            <!-- Блок с результатами -->
+            <div id="delivery-info" style="display: none; margin-top: 20px; padding: 15px; border-radius: 8px; background-color: #1a1a1a;">
+                <h3 id="info-city-title"></h3>
+                <p><strong>Срок доставки:</strong> <span id="info-time"></span></p>
+                <p><strong>Стоимость:</strong> <span id="info-price"></span></p>
+                <p><strong>Способ оплаты:</strong> Kaspi QR, банковская карта, наличные курьеру</p>
+            </div>
+        </section>
+
+        <!-- Форма для оформления заявки -->
+        <section class="card" id="order-section" style="display: none;">
+            <h2>Оформить доставку</h2>
+            <form id="order-form" onsubmit="submitOrder(event)">
+                <div class="form-group">
+                    <label for="address">Улица, дом, квартира:</label>
+                    <input type="text" id="address" required placeholder="ул. Абая 10, кв. 5">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Телефон для связи:</label>
+                    <input type="tel" id="phone" required placeholder="+7 (700) 000-00-00">
+                </div>
+                <button type="submit" class="btn">Подтвердить адрес</button>
+            </form>
+            <div id="order-status" style="display:none; color: #4CAF50; margin-top: 10px;"></div>
+        </section>
+
+        <section class="card">
+            <h2 class="text-center">О члене команды (Студент 4)</h2>
+            <img src="images/meirambek.jfif" alt="Студент 4" class="profile-img">
+            <h3 class="text-center">Meirambek Samenkhan</h3>
+            <p class="text-center">Роль: Менеджер логистики и коммуникаций. Создал форму обратной связи и разработал политику доставки магазина.</p>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>Команда: Rymbek Beknur, Matzhan Arlan, Arman Sultangaliev, Meirambek Samenkhan | Группа: SE-2505</p>
+    </footer>
+
+    <script>
+        function calculateDelivery(event) {
+            event.preventDefault();
+            const cityInput = document.getElementById('user-city').value.trim();
+            const cityLower = cityInput.toLowerCase();
+            
+            const infoBlock = document.getElementById('delivery-info');
+            const title = document.getElementById('info-city-title');
+            const time = document.getElementById('info-time');
+            const price = document.getElementById('info-price');
+            const orderSection = document.getElementById('order-section');
+
+            if (!cityInput) return;
+
+            if (cityLower.includes('астана') || cityLower.includes('алматы')) {
+                time.textContent = '1 рабочий день (Экспресс-доставка)';
+                price.textContent = '1 000 ₸ (Бесплатно при заказе от 20 000 ₸)';
+            } else if (['шымкент', 'караганда', 'актобе', 'атырау', 'павлодар', 'усть-каменогорск'].some(c => cityLower.includes(c))) {
+                time.textContent = '2–3 рабочих дня';
+                price.textContent = '1 500 ₸';
+            } else {
+                time.textContent = '3–5 рабочих дней (Почта / Региональная курьерская служба)';
+                price.textContent = '2 000 ₸';
+            }
+
+            title.textContent = 'Условия для города ' + cityInput + ':';
+            infoBlock.style.display = 'block';
+            orderSection.style.display = 'block';
+        }
+
+        function submitOrder(event) {
+            event.preventDefault();
+            const status = document.getElementById('order-status');
+            status.style.display = 'block';
+            status.textContent = 'Данные о доставке успешно сохранены! Наш менеджер свяжется с вами.';
+        }
+    </script>
+</body>
+</html>
