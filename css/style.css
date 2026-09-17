@@ -1,4 +1,4 @@
-/* --- 1. Element Selectors (Глобальные стили и типографика) --- */
+
 body {
     background-color: #121212;
     color: #e0e0e0;
@@ -9,7 +9,7 @@ body {
 }
 
 h1, h2, h3 {
-    color: #cda434;
+    color: #130f36;
     font-weight: 300;
 }
 
@@ -18,9 +18,8 @@ img {
     height: auto;
 }
 
-/* --- 2. ID Selectors & Descendant Selectors (Навигация) --- */
 #main-header {
-    background-color: #0a0a0a;
+    background-color: #080303;
     border-bottom: 1px solid #333;
     padding: 20px 0;
 }
@@ -29,26 +28,24 @@ img {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    display: flex; /* Flex alignment */
+    display: flex; 
     justify-content: center;
     gap: 3vw;
 }
 
 #main-header nav ul li a {
-    color: #fff;
-    text-decoration: none; /* Убираем подчеркивание */
+    color: #f5efef;
+    text-decoration: none; 
     text-transform: uppercase;
     font-size: 1rem;
     letter-spacing: 1.5px;
     transition: color 0.3s ease;
 }
 
-/* Hover-состояние для ссылок */
 #main-header nav ul li a:hover {
-    color: #cda434;
+    color: #2abce0;
 }
 
-/* --- 3. Class Selectors (Блочная модель и Layout) --- */
 .container {
     width: 85%;
     max-width: 1200px;
@@ -68,18 +65,16 @@ img {
     border-radius: 5px;
 }
 
-/* Требование: Круглое изображение профиля */
 .profile-img {
     width: 150px;
     height: 150px;
-    border-radius: 50%; /* Круглая форма */
+    border-radius: 25%; 
     object-fit: cover;
-    border: 2px solid #cda434;
+    border: 10px solid #cda434;
     display: block;
     margin: 0 auto 15px auto;
 }
 
-/* --- Стилизация таблиц --- */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -97,7 +92,6 @@ table th {
     color: #cda434;
 }
 
-/* --- Стилизация форм --- */
 .contact-form {
     background-color: #1a1a1a;
     padding: 30px;
@@ -142,7 +136,6 @@ table th {
     background-color: #a88627;
 }
 
-/* --- Футер --- */
 .site-footer {
     background-color: #0a0a0a;
     text-align: center;
@@ -150,5 +143,5 @@ table th {
     border-top: 1px solid #333;
     margin-top: 50px;
     color: #777;
-    font-size: 0.9rem;
+    font-size: 100px;
 }
