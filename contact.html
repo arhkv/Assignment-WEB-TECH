@@ -2,45 +2,82 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Контакты | Dark Essence</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<div class="page">
+
     <header id="main-header">
-        <nav>
+        <div class="header-inner">
+            <a href="index.html" class="logo"><span class="logo-mark">D</span>Dark Essence</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="about.html">О нас</a></li>
+                    <li><a href="catalog-men.html">Мужская</a></li>
+                    <li><a href="catalog-women.html">Женская</a></li>
+                    <li><a href="gallery.html">Галерея</a></li>
+                    <li><a href="pricing.html">Прайс</a></li>
+                    <li><a href="brands.html">Бренды</a></li>
+                    <li><a href="contact.html" class="active">Контакты</a></li>
+                    <li><a href="delivery.html">Доставка</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <aside class="sidebar">
+        <section>
+            <h3>Коллекции</h3>
             <ul>
-                <li><a href="index.html">Главная</a></li>
-                <li><a href="about.html">О нас</a></li>
                 <li><a href="catalog-men.html">Мужская</a></li>
                 <li><a href="catalog-women.html">Женская</a></li>
-                <li><a href="pricing.html">Прайс</a></li>
-                <li><a href="brands.html">Бренды</a></li>
-                <li><a href="contact.html">Контакты</a></li>
-                <li><a href="delivery.html">Доставка</a></li>
+                <li><a href="gallery.html">Галерея</a></li>
             </ul>
-        </nav>
-    </header>
+        </section>
+        <section>
+            <h3>Бренды</h3>
+            <ul>
+                <li>Tom Ford</li>
+                <li>Byredo</li>
+                <li>Le Labo</li>
+                <li>Maison Francis Kurkdjian</li>
+                <li>Kilian</li>
+            </ul>
+        </section>
+        <section>
+            <h3>Шоурум</h3>
+            <p>г. Астана, пр. Мангилик Ел, 55/11<br>Ежедневно 10:00–21:00</p>
+        </section>
+    </aside>
 
     <main class="container">
         <h1 class="text-center">Свяжитесь с нами</h1>
-        <img src="images/contact.jfif" alt="Связь с нами" style="display: block; margin: 0 auto 20px auto; width: 50%;">
-        
+        <img src="images/contact.jfif" alt="Связь с нами" style="margin: 0 auto 20px; width: 50%;">
+
         <section class="card text-center">
             <h2>Наши контакты</h2>
             <p><strong>Телефон / WhatsApp:</strong></p>
-            <p><a href="tel:+77000000001" style="color: #cda434; text-decoration: none;">+7 (700) 000-00-01</a> — Бекнур</p>
-            <p><a href="tel:+77000000002" style="color: #cda434; text-decoration: none;">+7 (700) 000-00-02</a> — Арлан</p>
-            <p><a href="tel:+77000000003" style="color: #cda434; text-decoration: none;">+7 (700) 000-00-03</a> — Арман</p>
-            <p><a href="tel:+77000000004" style="color: #cda434; text-decoration: none;">+7 (700) 000-00-04</a> — Мейрамбек</p>
+            <div class="contact-list">
+                <div><a href="tel:+77000000001">+7 (700) 000-00-01</a><br>Бекнур</div>
+                <div><a href="tel:+77000000002">+7 (700) 000-00-02</a><br>Арлан</div>
+                <div><a href="tel:+77000000003">+7 (700) 000-00-03</a><br>Арман</div>
+                <div><a href="tel:+77000000004">+7 (700) 000-00-04</a><br>Мейрамбек</div>
+            </div>
 
             <h2 style="margin-top: 30px;">Социальные сети</h2>
-            <p><strong>Instagram:</strong> 
-                <a href="https://instagram.com" target="_blank" style="color: #cda434; text-decoration: none; font-weight: bold;">
-                    @dark_essence_perfume
-                </a>
+            <p><strong>Instagram:</strong>
+                <a href="https://instagram.com" target="_blank" rel="noopener" style="text-decoration: none; font-weight: bold;">@dark_essence_perfume</a>
             </p>
         </section>
     </main>
 
     <footer class="site-footer">
-       <p>Команда: Rymbek Beknur, Matzhan Arlan, Arman Sultangaliev, Meirambek Samenkhan | Г
+        <p>Команда: Rymbek Beknur, Matzhan Arlan, Arman Sultangaliev, Meirambek Samenkhan | Группа: SE-2505</p>
+    </footer>
+
+</div>
+</body>
+</html>

@@ -2,88 +2,76 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Прайс-лист | Dark Essence</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<div class="page">
+
     <header id="main-header">
-        <nav>
+        <div class="header-inner">
+            <a href="index.html" class="logo"><span class="logo-mark">D</span>Dark Essence</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="about.html">О нас</a></li>
+                    <li><a href="catalog-men.html">Мужская</a></li>
+                    <li><a href="catalog-women.html">Женская</a></li>
+                    <li><a href="gallery.html">Галерея</a></li>
+                    <li><a href="pricing.html" class="active">Прайс</a></li>
+                    <li><a href="brands.html">Бренды</a></li>
+                    <li><a href="contact.html">Контакты</a></li>
+                    <li><a href="delivery.html">Доставка</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <aside class="sidebar">
+        <section>
+            <h3>Коллекции</h3>
             <ul>
-                <li><a href="index.html">Главная</a></li>
-                <li><a href="about.html">О нас</a></li>
                 <li><a href="catalog-men.html">Мужская</a></li>
                 <li><a href="catalog-women.html">Женская</a></li>
-                <li><a href="pricing.html">Прайс</a></li>
-                <li><a href="brands.html">Бренды</a></li>
-                <li><a href="contact.html">Контакты</a></li>
-                <li><a href="delivery.html">Доставка</a></li>
+                <li><a href="gallery.html">Галерея</a></li>
             </ul>
-        </nav>
-    </header>
+        </section>
+        <section>
+            <h3>Бренды</h3>
+            <ul>
+                <li>Tom Ford</li>
+                <li>Byredo</li>
+                <li>Le Labo</li>
+                <li>Maison Francis Kurkdjian</li>
+                <li>Kilian</li>
+            </ul>
+        </section>
+        <section>
+            <h3>Шоурум</h3>
+            <p>г. Астана, пр. Мангилик Ел, 55/11<br>Ежедневно 10:00–21:00</p>
+        </section>
+    </aside>
 
     <main class="container">
         <h1 class="text-center">Цены на парфюмерию</h1>
-
-      
-        <img src="https://dummyimage.com/1200x300/1a1a1a/cda434&text=Прайс-лист" alt="Баннер прайс-листа" class="product-img" style="margin-bottom: 30px;">
-
-
-        <table>
-            <tr>
-                <th>Бренд</th>
-                <th>Аромат</th>
-                <th>Категория</th>
-                <th>Объем (ml)</th>
-                <th>Цена ($)</th>
-            </tr>
-            <tr>
-                <td>Tom Ford</td>
-                <td>Ombre Leather</td>
-                <td>Мужская</td>
-                <td>100</td>
-                <td>210</td>
-            </tr>
-            <tr>
-                <td>Dior</td>
-                <td>Sauvage Elixir</td>
-                <td>Мужская</td>
-                <td>60</td>
-                <td>180</td>
-            </tr>
-            <tr>
-                <td>Creed</td>
-                <td>Aventus</td>
-                <td>Мужская</td>
-                <td>100</td>
-                <td>365</td>
-            </tr>
-            <tr>
-                <td>Byredo</td>
-                <td>Blanche</td>
-                <td>Женская</td>
-                <td>50</td>
-                <td>195</td>
-            </tr>
-            <tr>
-                <td>Yves Saint Laurent</td>
-                <td>Black Opium</td>
-                <td>Женская</td>
-                <td>90</td>
-                <td>150</td>
-            </tr>
-            <tr>
-                <td>Maison Francis Kurkdjian</td>
-                <td>Baccarat Rouge 540</td>
-                <td>Женская (Унисекс)</td>
-                <td>70</td>
-                <td>325</td>
-            </tr>
-        </table>
+        <div class="table-wrap">
+            <table>
+                <tr><th>Бренд</th><th>Аромат</th><th>Категория</th><th>Объем (ml)</th><th>Цена ($)</th></tr>
+                    <tr><td>Tom Ford</td><td>Ombre Leather</td><td>Мужская</td><td>100</td><td>210</td></tr>
+                    <tr><td>Dior</td><td>Sauvage Elixir</td><td>Мужская</td><td>60</td><td>180</td></tr>
+                    <tr><td>Creed</td><td>Aventus</td><td>Мужская</td><td>100</td><td>365</td></tr>
+                    <tr><td>Byredo</td><td>Blanche</td><td>Женская</td><td>50</td><td>195</td></tr>
+                    <tr><td>Yves Saint Laurent</td><td>Black Opium</td><td>Женская</td><td>90</td><td>150</td></tr>
+                    <tr><td>Maison Francis Kurkdjian</td><td>Baccarat Rouge 540</td><td>Женская (Унисекс)</td><td>70</td><td>325</td></tr>
+            </table>
+        </div>
     </main>
 
-   
     <footer class="site-footer">
-        <p>Проект выполнили: Rymbek Beknur, Матжан Арлан, Султангалиев Арман, Мейрамбек Саменхан | Группа: SE-2505</p>
+        <p>Команда: Rymbek Beknur, Matzhan Arlan, Arman Sultangaliev, Meirambek Samenkhan | Группа: SE-2505</p>
     </footer>
+
+</div>
 </body>
-</html> 
+</html>

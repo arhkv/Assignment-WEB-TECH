@@ -2,36 +2,109 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Главная | Dark Essence</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Главная | Dark Essence</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<div class="page">
+
     <header id="main-header">
-        <nav>
-            <ul>
-                <li><a href="index.html">Главная</a></li>
-                <li><a href="about.html">О нас</a></li>
-                <li><a href="catalog-men.html">Мужская</a></li>
-                <li><a href="catalog-women.html">Женская</a></li>
-                <li><a href="pricing.html">Прайс</a></li>
-                <li><a href="brands.html">Бренды</a></li>
-                <li><a href="contact.html">Контакты</a></li>
-                <li><a href="delivery.html">Доставка</a></li>
-            </ul>
-        </nav>
+        <div class="header-inner">
+            <a href="index.html" class="logo"><span class="logo-mark">D</span>Dark Essence</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="active">Главная</a></li>
+                    <li><a href="about.html">О нас</a></li>
+                    <li><a href="catalog-men.html">Мужская</a></li>
+                    <li><a href="catalog-women.html">Женская</a></li>
+                    <li><a href="gallery.html">Галерея</a></li>
+                    <li><a href="pricing.html">Прайс</a></li>
+                    <li><a href="brands.html">Бренды</a></li>
+                    <li><a href="contact.html">Контакты</a></li>
+                    <li><a href="delivery.html">Доставка</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
+    <aside class="sidebar">
+        <section>
+            <h3>Коллекции</h3>
+            <ul>
+                <li><a href="catalog-men.html">Мужская</a></li>
+                <li><a href="catalog-women.html">Женская</a></li>
+                <li><a href="gallery.html">Галерея</a></li>
+            </ul>
+        </section>
+        <section>
+            <h3>Бренды</h3>
+            <ul>
+                <li>Tom Ford</li>
+                <li>Byredo</li>
+                <li>Le Labo</li>
+                <li>Maison Francis Kurkdjian</li>
+                <li>Kilian</li>
+            </ul>
+        </section>
+        <section>
+            <h3>Шоурум</h3>
+            <p>г. Астана, пр. Мангилик Ел, 55/11<br>Ежедневно 10:00–21:00</p>
+        </section>
+    </aside>
+
     <main class="container">
-        <h1 class="text-center">Dark Essence Perfumery</h1>
-        <p class="text-center">Минимализм, стиль и неповторимые ароматы.</p>
-        <div class="text-center">
-            <img src="images/parfume.jpg.jfif   " alt="Флаконы парфюма на темном фоне">
+        <section class="hero">
+            <h1>Dark Essence Perfumery</h1>
+            <p>Минимализм, стиль и неповторимые ароматы.</p>
+            <img src="images/parfume.jpg.jfif" alt="Флаконы парфюма на темном фоне">
+        </section>
+
+        <h2 class="section-title">Хиты продаж</h2>
+        <div class="card-row">
+            <article class="product-card">
+                <img src="images/tomford.jfif" alt="Tom Ford Ombre Leather">
+                <div class="card-body">
+                    <h2>Tom Ford — Ombre Leather</h2>
+                <p>Глубокий кожаный аромат с шафраном и амброй.</p>
+                    <ul>
+                    <li>Мужская</li>
+                    <li>100 ml — $210</li>
+                    </ul>
+                    <a href="catalog-men.html" class="btn">Подробнее</a>
+                </div>
+            </article>
+            <article class="product-card">
+                <img src="images/blanche.jfif" alt="Byredo Blanche">
+                <div class="card-body">
+                    <h2>Byredo — Blanche</h2>
+                <p>Чистый и нежный аромат утреннего света.</p>
+                    <ul>
+                    <li>Женская</li>
+                    <li>50 ml — $195</li>
+                    </ul>
+                    <a href="catalog-women.html" class="btn">Подробнее</a>
+                </div>
+            </article>
+            <article class="product-card">
+                <img src="images/Baccarat.jfif" alt="Baccarat Rouge 540">
+                <div class="card-body">
+                    <h2>MFK — Baccarat Rouge 540</h2>
+                <p>Сияющий цветочно-древесный шлейф.</p>
+                    <ul>
+                    <li>Унисекс</li>
+                    <li>70 ml — $325</li>
+                    </ul>
+                    <a href="catalog-women.html" class="btn">Подробнее</a>
+                </div>
+            </article>
         </div>
     </main>
 
     <footer class="site-footer">
         <p>Команда: Rymbek Beknur, Matzhan Arlan, Arman Sultangaliev, Meirambek Samenkhan | Группа: SE-2505</p>
     </footer>
+
+</div>
 </body>
 </html>

@@ -2,67 +2,106 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Женская парфюмерия | Dark Essence</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<div class="page">
+
     <header id="main-header">
-        <nav>
+        <div class="header-inner">
+            <a href="index.html" class="logo"><span class="logo-mark">D</span>Dark Essence</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="about.html">О нас</a></li>
+                    <li><a href="catalog-men.html">Мужская</a></li>
+                    <li><a href="catalog-women.html" class="active">Женская</a></li>
+                    <li><a href="gallery.html">Галерея</a></li>
+                    <li><a href="pricing.html">Прайс</a></li>
+                    <li><a href="brands.html">Бренды</a></li>
+                    <li><a href="contact.html">Контакты</a></li>
+                    <li><a href="delivery.html">Доставка</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <aside class="sidebar">
+        <section>
+            <h3>Коллекции</h3>
             <ul>
-                <li><a href="index.html">Главная</a></li>
-                <li><a href="about.html">О нас</a></li>
                 <li><a href="catalog-men.html">Мужская</a></li>
                 <li><a href="catalog-women.html">Женская</a></li>
-                <li><a href="pricing.html">Прайс</a></li>
-                <li><a href="brands.html">Бренды</a></li>
-                <li><a href="contact.html">Контакты</a></li>
-                <li><a href="delivery.html">Доставка</a></li>
+                <li><a href="gallery.html">Галерея</a></li>
             </ul>
-        </nav>
-    </header>
+        </section>
+        <section>
+            <h3>Бренды</h3>
+            <ul>
+                <li>Tom Ford</li>
+                <li>Byredo</li>
+                <li>Le Labo</li>
+                <li>Maison Francis Kurkdjian</li>
+                <li>Kilian</li>
+            </ul>
+        </section>
+        <section>
+            <h3>Шоурум</h3>
+            <p>г. Астана, пр. Мангилик Ел, 55/11<br>Ежедневно 10:00–21:00</p>
+        </section>
+    </aside>
 
     <main class="container">
         <h1 class="text-center">Женская коллекция</h1>
-        
-        <div class="card">
-            <h2>1. Byredo - Blanche</h2>
-            <img src="images/blanche.jfif" alt="Byredo Blanche" class="product-img">
-            <p>Чистый и нежный аромат, передающий ощущение свежевыстиранного белья и утреннего света.</p>
-            <h3>Ноты аромата:</h3>
-            <ul>
-                <li>Верхние ноты: Белая роза, Розовый перец</li>
-                <li>Средние ноты: Фиалка, Нероли, Пион</li>
-                <li>Базовые ноты: Светлое дерево, Сандал, Мускус</li>
-            </ul>
-        </div>
-
-        <div class="card">
-            <h2>2. Yves Saint Laurent - Black Opium</h2>
-            <img src="images/blackopium.jfif" alt="YSL Black Opium" class="product-img">
-            <p>Дерзкий, соблазнительный и обволакивающий аромат с ярким кофейным аккордом.</p>
-            <h3>Ноты аромата:</h3>
-            <ul>
-                <li>Верхние ноты: Груша, Розовый перец, Цветок апельсина</li>
-                <li>Средние ноты: Кофе, Жасмин, Горький миндаль</li>
-                <li>Базовые ноты: Ваниль, Пачули, Кедр</li>
-            </ul>
-        </div>
-
-        <div class="card">
-            <h2>3. Maison Francis Kurkdjian - Baccarat Rouge 540</h2>
-            <img src="images/Baccarat.jfif" alt="Baccarat Rouge 540" class="product-img">
-            <p>Легендарный сияющий и сложный аромат, оставляющий роскошный цветочно-древесный шлейф.</p>
-            <h3>Ноты аромата:</h3>
-            <ul>
-                <li>Верхние ноты: Шафран, Жасмин</li>
-                <li>Средние ноты: Amberwood (Янтарное дерево), Серая амбра</li>
-                <li>Базовые ноты: Еловая смола, Кедр</li>
-            </ul>
+        <div class="card-row">
+            <article class="product-card">
+                <img src="images/blanche.jfif" alt="Byredo Blanche">
+                <div class="card-body">
+                    <h2>Byredo — Blanche</h2>
+                <p>Чистый и нежный аромат, передающий ощущение свежевыстиранного белья и утреннего света.</p>
+                    <ul>
+                    <li><strong>Верхние:</strong> Белая роза, Розовый перец</li>
+                    <li><strong>Средние:</strong> Фиалка, Нероли, Пион</li>
+                    <li><strong>Базовые:</strong> Светлое дерево, Сандал, Мускус</li>
+                    </ul>
+                    <a href="pricing.html" class="btn">Подробнее</a>
+                </div>
+            </article>
+            <article class="product-card">
+                <img src="images/blackopium.jfif" alt="YSL Black Opium">
+                <div class="card-body">
+                    <h2>Yves Saint Laurent — Black Opium</h2>
+                <p>Дерзкий, соблазнительный и обволакивающий аромат с ярким кофейным аккордом.</p>
+                    <ul>
+                    <li><strong>Верхние:</strong> Груша, Розовый перец, Цветок апельсина</li>
+                    <li><strong>Средние:</strong> Кофе, Жасмин, Горький миндаль</li>
+                    <li><strong>Базовые:</strong> Ваниль, Пачули, Кедр</li>
+                    </ul>
+                    <a href="pricing.html" class="btn">Подробнее</a>
+                </div>
+            </article>
+            <article class="product-card">
+                <img src="images/Baccarat.jfif" alt="Baccarat Rouge 540">
+                <div class="card-body">
+                    <h2>MFK — Baccarat Rouge 540</h2>
+                <p>Легендарный сияющий и сложный аромат, оставляющий роскошный цветочно-древесный шлейф.</p>
+                    <ul>
+                    <li><strong>Верхние:</strong> Шафран, Жасмин</li>
+                    <li><strong>Средние:</strong> Amberwood (Янтарное дерево), Серая амбра</li>
+                    <li><strong>Базовые:</strong> Еловая смола, Кедр</li>
+                    </ul>
+                    <a href="pricing.html" class="btn">Подробнее</a>
+                </div>
+            </article>
         </div>
     </main>
 
     <footer class="site-footer">
-        <p>Проект выполнили: Rymbek Beknur, Матжан Арлан, Султангалиев Арман, Мейрамбек Саменхан | Группа: SE-2505</p>
+        <p>Команда: Rymbek Beknur, Matzhan Arlan, Arman Sultangaliev, Meirambek Samenkhan | Группа: SE-2505</p>
     </footer>
+
+</div>
 </body>
 </html>
