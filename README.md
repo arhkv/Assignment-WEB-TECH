@@ -17,20 +17,20 @@ Dark Essence is a fictional store of niche fragrances. The site presents the cat
 
 
 Assignment-WEB-TECH-main/
-├── index.html           # Home
-├── about.html           # About us and team
-├── catalog-men.html     # Men's collection
-├── catalog-women.html   # Women's collection
-├── pricing.html         # Price list (table)
-├── brands.html          # Top brands
-├── contact.html         # Contacts
-├── delivery.html        # Delivery, office, order form
-├── cards.html           # Responsive cards
-├── gallery.html         # Gallery with hover captions + carousel
-├── typography.html      # Responsive typography
-├── css/
-│   └── style.css        # Single stylesheet
-└── images/              # Fragrance photos and team member photos
+index.html           # Home
+about.html           # About us and team
+catalog-men.html     # Men's collection
+catalog-women.html   # Women's collection
+pricing.html         # Price list (table)
+brands.html          # Top brands
+contact.html         # Contacts
+delivery.html        # Delivery, office, order form
+cards.html           # Responsive cards
+gallery.html         # Gallery with hover captions + carousel
+typography.html      # Responsive typography
+css/
+  style.css        # Single stylesheet
+images/              # Fragrance photos and team member photos
 
 
 ## Pages and what is implemented
