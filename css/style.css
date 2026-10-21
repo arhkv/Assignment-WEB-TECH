@@ -118,6 +118,29 @@ main.container { grid-area: main; }
 #main-header nav a:hover { color: #2abce0; }
 #main-header nav a.active { color: var(--gold); border-bottom-color: var(--gold); }
 
+/* --- Index page only: header with date + Change BG button --- */
+.header-inner:has(#datetime-display) { gap: 12px; }
+
+.header-inner:has(#datetime-display) nav ul {
+    flex-wrap: nowrap;
+    gap: 1.2vw;
+}
+
+.header-inner:has(#datetime-display) nav a {
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    white-space: nowrap;
+}
+
+#datetime-display,
+#bg-color-btn {
+    white-space: nowrap;
+}
+
+@media (max-width: 1199px) {
+    .header-inner:has(#datetime-display) nav ul { flex-wrap: wrap; justify-content: center; }
+}
+
 .sidebar {
     background-color: #0e0e0e;
     border-right: 1px solid var(--line);
@@ -502,3 +525,39 @@ table tr:hover td { background: #1f1f1f; }
 @media (prefers-reduced-motion: reduce) {
     * { transition: none !important; scroll-behavior: auto !important; }
 }
+
+/* Custom Popup Modal Styles */
+.custom-modal {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    display: flex; justify-content: center; align-items: center;
+    z-index: 1050;
+}
+.custom-modal-content {
+    width: 90%; max-width: 450px;
+    position: relative;
+    padding: 30px;
+}
+.close-btn:hover { color: var(--gold) !important; }
+.accordion-header-custom:hover { color: var(--gold) !important; }
+
+.accordion-header-custom { position: relative; padding-right: 30px; }
+.accordion-header-custom::after {
+    content: '\25BE';
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gold);
+    transition: transform 0.4s ease;
+}
+.accordion-header-custom.active::after { transform: translateY(-50%) rotate(180deg); }
+
+.accordion-content-custom {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.4s ease, opacity 0.4s ease;
+}
+.accordion-content-custom.open { opacity: 1; }
+.accordion-content-custom p { padding-top: 0.5rem; }
