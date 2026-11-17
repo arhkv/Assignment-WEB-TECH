@@ -321,6 +321,14 @@ function initGreeting() {
     form.addEventListener('submit', event => {
         event.preventDefault();
         const name = input.value.trim().slice(0, 20); // length limit in JS, not with maxlength
+        if (name && name.length < 2) {
+            setStatus(tip, 'Name must be at least 2 characters.', 'error');
+            input.setAttribute('aria-invalid', 'true');
+            input.focus();
+            return;
+        }
+        input.removeAttribute('aria-invalid');
+        setStatus(tip, period.tip);
         storage.set('de-name', name);
         showGreeting(name);
         SoundFX.play('success');
@@ -1266,17 +1274,32 @@ function initLazyLoad() {
    12. Final project: validation, accounts, exchange rate
    ========================================================== */
 
+// Popular passwords that pass the character rules but are easy to guess
+const COMMON_PASSWORDS = [
+    'password1', 'password12', 'qwerty12', 'qwerty123', 'letmein1', 'welcome1',
+    'iloveyou1', 'admin123', 'abc12345', '12345678a', 'passw0rd', 'november1'
+];
+
 // Small reusable checks. Each takes the field value and returns true when it is valid.
 const validators = {
     minLength: min => value => value.trim().length >= min,
-    email: value => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value.trim()),
-    phone: value => {
+    // local part without spaces/@, a domain with labels, no double dots, TLD of 2+ letters
+    email: value => {
         const text = value.trim();
-        const digits = text.replace(/\D/g, '').length;
-        return /^\+?[\d\s()-]+$/.test(text) && digits >= 10 && digits <= 15;
+        return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z]{2,}$/.test(text)
+            && !text.includes('..') && !text.startsWith('.') && !/\.@/.test(text);
     },
-    // 8+ characters, at least one lowercase letter, one uppercase letter and one digit
-    password: value => value.length >= 8 && /[a-z]/.test(value) && /[A-Z]/.test(value) && /\d/.test(value),
+    // digits only after removing spaces, brackets and dashes; optional leading +; 10-15 digits;
+    // rejects numbers made of one repeated digit (e.g. 1111111111)
+    phone: value => {
+        const cleaned = value.trim().replace(/[\s()-]/g, '');
+        return /^\+?\d{10,15}$/.test(cleaned) && !/^(\+)?(\d)\2+$/.test(cleaned);
+    },
+    // 8+ characters, lowercase, uppercase and a digit; no leading/trailing spaces; not a common password
+    password: value => value.length >= 8
+        && value === value.trim()
+        && /[a-z]/.test(value) && /[A-Z]/.test(value) && /\d/.test(value)
+        && !COMMON_PASSWORDS.includes(value.toLowerCase()),
     matches: getOther => value => value === getOther()
 };
 
@@ -1328,10 +1351,7 @@ function validateForm(form, rules, statusElement) {
 // Rules for every form on the site
 function subscribeRules() {
     return [
-        { field: 'sub-email', checks: [{ test: validators.email, message: 'Enter a valid email, e.g. name@mail.com.' }] },
-        { field: 'sub-phone', checks: [{ test: validators.phone, message: 'Enter 10–15 digits, e.g. +7 700 000 00 00.' }] },
-        { field: 'sub-password', checks: [{ test: validators.password, message: 'Use 8+ characters with an uppercase letter, a lowercase letter and a digit.' }] },
-        { field: 'sub-confirm', checks: [{ test: validators.matches(() => document.getElementById('sub-password').value), message: 'Passwords do not match.' }] }
+        { field: 'sub-email', checks: [{ test: validators.email, message: 'Enter a valid email, e.g. name@mail.com.' }] }
     ];
 }
 

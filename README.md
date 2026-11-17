@@ -44,7 +44,7 @@ Assignment-WEB-TECH-main/
 - **Pricing** — an HTML table: brand, fragrance, category, volume (ml), price in dollars.
 - **Brands** — an ordered list (`<ol>`): Tom Ford, Byredo, Le Labo, Maison Francis Kurkdjian, Kilian.
 - **Contacts** — phone/WhatsApp numbers of the team (`tel:` links) and Instagram.
-- **Delivery** — office address in Astana, working hours, courier delivery terms and an **order form**: text fields, email, a dropdown for the delivery method, radio buttons for delivery time, a comment field and a submit button. Fields use the `required` attribute and the email is validated by the browser.
+- **Delivery** — office address in Astana, working hours, courier delivery terms and an **order form**: text fields, email, a dropdown for the delivery method, radio buttons for delivery time, a comment field and a submit button. All fields are checked by the script in `js/script.js`; the browser's own validation is turned off with `novalidate`.
 - **Cards** — product cards: 3 per row on desktop, 2 on tablet, 1 on mobile (CSS media queries only).
 - **Gallery** — a grid of 9 photos (`<figure>` + `<figcaption>`); the caption appears on hover or keyboard focus (`tabindex="0"`), with a Bootstrap carousel below.
 - **Typography** — font size changes with screen width: small up to 767px, medium from 768 to 1199px, large from 1200px.
@@ -101,7 +101,7 @@ jQuery 4.0.0 is loaded from the CDN in the `<head>` of every page. All jQuery co
 ## Final project
 
 - **Accounts (simulation):** `signup.html`, `login.html`, `profile.html`. Users are stored in localStorage (`de-users`) with a SHA-256 hash of the password. The session is kept in `de-session`.
-- **Form validation:** every form has checks for email format, phone pattern (10-15 digits), required fields and password complexity (8+ characters, upper and lower case letters, a digit). Messages are shown on the page. No HTML validation attributes are used; all forms have `novalidate`.
+- **Form validation:** the sign-up and order forms check email format, phone pattern (10-15 digits), required fields and password complexity (8+ characters, upper and lower case letters, a digit); the newsletter form checks the email. Messages are shown on the page. No HTML validation attributes are used; all forms have `novalidate`.
 - **Search and filter:** the shop search, category, price and sort settings are saved in localStorage (`de-shop-filters`).
 - **External API:** the pricing page shows the live USD to KZT rate from open.er-api.com, with a converter, a loading state and a fallback to the last saved rate.
 - **Other API:** the contact form sends its data with `fetch()` to jsonplaceholder.typicode.com.

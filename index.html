@@ -78,7 +78,7 @@
         <section id="greeting-box" class="card greeting-box text-center">
             <h2 id="greeting">Welcome</h2>
             <p id="greeting-tip" class="mb-3"></p>
-            <form id="greeting-form" class="greeting-form">
+            <form id="greeting-form" class="greeting-form" novalidate>
                 <label for="visitor-name" class="visually-hidden">Your name</label>
                 <input type="text" id="visitor-name" placeholder="Enter your name" autocomplete="given-name">
                 <button type="submit" class="btn btn-sm">Greet me</button>
@@ -206,20 +206,7 @@
             <form id="subscribe-form" class="contact-form m-0 w-100" novalidate>
                 <div class="form-group">
                     <label for="sub-email">Email Address:</label>
-                    <input type="text" id="sub-email" placeholder="example@mail.com">
-                </div>
-                <div class="form-group">
-                    <label for="sub-phone">Phone:</label>
-                    <input type="text" id="sub-phone" name="phone" placeholder="+7 700 000 00 00">
-                </div>
-                <div class="form-group">
-                    <label for="sub-password">Password:</label>
-                    <input type="password" id="sub-password" placeholder="Create password">
-                    <small class="form-hint">8+ characters, with an uppercase letter, a lowercase letter and a digit.</small>
-                </div>
-                <div class="form-group">
-                    <label for="sub-confirm">Confirm Password:</label>
-                    <input type="password" id="sub-confirm" placeholder="Repeat password">
+                    <input type="text" id="sub-email" autocomplete="email" placeholder="example@mail.com">
                 </div>
                 <div id="form-errors" class="text-danger mb-3 small fw-bold"></div>
                 <button type="submit" class="btn-submit">Submit</button>
