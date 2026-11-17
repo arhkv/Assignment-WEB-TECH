@@ -29,6 +29,9 @@
                     <li class="nav-item"><a class="nav-link" href="pricing.html">Pricing</a></li>
                     <li class="nav-item"><a class="nav-link" href="brands.html">Brands</a></li>
                     <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="signup.html">Sign up</a></li>
+                    <li class="nav-item"><a class="nav-link" href="login.html">Log in</a></li>
+                    <li class="nav-item"><a class="nav-link" href="profile.html">Profile</a></li>
                     <li class="nav-item"><a class="nav-link" href="delivery.html">Delivery</a></li>
                 </ul>
                 </div>
@@ -77,7 +80,7 @@
             <p id="greeting-tip" class="mb-3"></p>
             <form id="greeting-form" class="greeting-form">
                 <label for="visitor-name" class="visually-hidden">Your name</label>
-                <input type="text" id="visitor-name" placeholder="Enter your name" maxlength="20" autocomplete="given-name">
+                <input type="text" id="visitor-name" placeholder="Enter your name" autocomplete="given-name">
                 <button type="submit" class="btn btn-sm">Greet me</button>
             </form>
         </section>
@@ -200,14 +203,19 @@
         <div class="custom-modal-content card">
             <span class="close-btn text-end fs-3 text-muted" role="button" aria-label="Close">&times;</span>
             <h2 class="text-center mb-4">Subscribe</h2>
-            <form id="subscribe-form" class="contact-form m-0 w-100">
+            <form id="subscribe-form" class="contact-form m-0 w-100" novalidate>
                 <div class="form-group">
                     <label for="sub-email">Email Address:</label>
                     <input type="text" id="sub-email" placeholder="example@mail.com">
                 </div>
                 <div class="form-group">
-                    <label for="sub-password">Password (min 6 chars):</label>
+                    <label for="sub-phone">Phone:</label>
+                    <input type="text" id="sub-phone" name="phone" placeholder="+7 700 000 00 00">
+                </div>
+                <div class="form-group">
+                    <label for="sub-password">Password:</label>
                     <input type="password" id="sub-password" placeholder="Create password">
+                    <small class="form-hint">8+ characters, with an uppercase letter, a lowercase letter and a digit.</small>
                 </div>
                 <div class="form-group">
                     <label for="sub-confirm">Confirm Password:</label>

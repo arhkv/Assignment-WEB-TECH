@@ -270,29 +270,19 @@ function initSubscribePopup() {
 
     form.addEventListener('submit', event => {
         event.preventDefault();
-        errorBox.innerHTML = '';
-
-        const email = document.getElementById('sub-email').value.trim();
-        const password = document.getElementById('sub-password').value;
-        const confirmPassword = document.getElementById('sub-confirm').value;
-        const errors = [];
-
-        if (!email.includes('@') || email.length < 5) errors.push('\u2022 Please enter a valid email containing "@".');
-        if (password.length < 6) errors.push('\u2022 Password must be at least 6 characters long.');
-        if (password !== confirmPassword) errors.push('\u2022 Passwords do not match.');
-
-        if (errors.length > 0) {
-            errorBox.innerHTML = errors.join('<br>');
+        // Validation with messages next to each field (Final project 5.2)
+        if (!validateForm(form, subscribeRules(), errorBox)) {
             SoundFX.play('error');
-        } else {
-            // Assignment 6 (Tasks 6 + 7): spinner on the button, then a toast instead of alert()
-            simulateRequest($(form).find('.btn-submit'), 1500, () => {
-                SoundFX.play('success');
-                showToast('Form submitted: subscription successful!', 'success');
-                closeModal();
-                form.reset();
-            });
+            return;
         }
+
+        // Assignment 6 (Tasks 6 + 7): spinner on the button, then a toast instead of alert()
+        simulateRequest($(form).find('.btn-submit'), 1500, () => {
+            SoundFX.play('success');
+            showToast('Form submitted: subscription successful!', 'success');
+            closeModal();
+            form.reset();
+        });
     });
 }
 
@@ -330,7 +320,7 @@ function initGreeting() {
 
     form.addEventListener('submit', event => {
         event.preventDefault();
-        const name = input.value.trim();
+        const name = input.value.trim().slice(0, 20); // length limit in JS, not with maxlength
         storage.set('de-name', name);
         showGreeting(name);
         SoundFX.play('success');
@@ -519,20 +509,18 @@ function initContactForm() {
     form.addEventListener('submit', event => {
         event.preventDefault();
 
-        const data = {
-            name: form.elements['name'].value.trim(),
-            email: form.elements['email'].value.trim(),
-            message: form.elements['message'].value.trim()
-        };
-
-        // Simple validation before sending
-        const fail = text => {
-            showStatus(text, 'error');
+        // Validation with messages next to each field (Final project 5.2)
+        if (!validateForm(form, contactRules(), status)) {
             SoundFX.play('error');
+            return;
+        }
+
+        const data = {
+            name: document.getElementById('contact-name').value.trim(),
+            email: document.getElementById('contact-email').value.trim(),
+            phone: document.getElementById('contact-phone').value.trim(),
+            message: document.getElementById('contact-message').value.trim()
         };
-        if (data.name.length < 2) return fail('Please enter your name.');
-        if (!data.email.includes('@') || data.email.length < 5) return fail('Please enter a valid email.');
-        if (data.message.length < 5) return fail('Your message is too short.');
 
         setButtonLoading($(submitButton), true); // spinner + "Please wait..." (Task 6)
         showStatus('Sending your message...', 'info');
@@ -593,6 +581,7 @@ function renderProducts() {
     const grid = document.getElementById('product-grid');
     const count = document.getElementById('results-count');
     const visible = getVisibleProducts();
+    saveShopFilters(); // remember the current filter and search (Final project 5.3)
 
     if (visible.length === 0) {
         grid.innerHTML = '<p class="empty-message">No fragrances match your filters.</p>';
@@ -727,6 +716,7 @@ function initShop() {
     const cartMessage = document.getElementById('cart-message');
 
     loadCart();
+    restoreShopFilters();
     renderProducts();
     renderCart();
 
@@ -815,6 +805,10 @@ document.addEventListener('DOMContentLoaded', () => {
     initShortcuts();
     initContactForm();
     initShop();
+    initSignupForm();
+    initLoginForm();
+    initProfilePage();
+    initExchangeRate();
 });
 
 
@@ -909,6 +903,11 @@ function initDeliveryForm() {
 
     $form.on('submit', function (event) {
         event.preventDefault();
+        // Validation with messages next to each field (Final project 5.2)
+        if (!validateForm(this, deliveryRules(), document.getElementById('delivery-status'))) {
+            SoundFX.play('error');
+            return;
+        }
         simulateRequest($form.find('.btn-submit'), 1500, () => {
             SoundFX.play('success');
             showToast('Form submitted: we will contact you soon', 'success');
@@ -1260,4 +1259,361 @@ function loadVisibleImages() {
 function initLazyLoad() {
     $(window).on('scroll resize load', loadVisibleImages);
     loadVisibleImages();
+}
+
+
+/* ==========================================================
+   12. Final project: validation, accounts, exchange rate
+   ========================================================== */
+
+// Small reusable checks. Each takes the field value and returns true when it is valid.
+const validators = {
+    minLength: min => value => value.trim().length >= min,
+    email: value => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value.trim()),
+    phone: value => {
+        const text = value.trim();
+        const digits = text.replace(/\D/g, '').length;
+        return /^\+?[\d\s()-]+$/.test(text) && digits >= 10 && digits <= 15;
+    },
+    // 8+ characters, at least one lowercase letter, one uppercase letter and one digit
+    password: value => value.length >= 8 && /[a-z]/.test(value) && /[A-Z]/.test(value) && /\d/.test(value),
+    matches: getOther => value => value === getOther()
+};
+
+// Puts a short status text in an element and marks it as error / success.
+function setStatus(element, text, type = '') {
+    if (!element) return;
+    element.textContent = text;
+    element.classList.toggle('error', type === 'error');
+    element.classList.toggle('success', type === 'success');
+}
+
+// Validates a form and shows every error next to its field (not in alert()).
+// rules: [{ field: 'input-id', checks: [{ test: function, message: 'text' }] }]
+// Returns true when every field passes.
+function validateForm(form, rules, statusElement) {
+    form.querySelectorAll('.field-error').forEach(node => node.remove());
+    form.querySelectorAll('[aria-invalid]').forEach(field => {
+        field.removeAttribute('aria-invalid');
+        field.classList.remove('is-invalid');
+    });
+
+    let firstInvalid = null;
+    rules.forEach(rule => {
+        const field = document.getElementById(rule.field);
+        if (!field) return;
+        const failed = rule.checks.find(check => !check.test(field.value));
+        if (!failed) return;
+
+        const message = document.createElement('small');
+        message.className = 'field-error';
+        message.setAttribute('role', 'alert');
+        message.textContent = failed.message;
+        (field.closest('.form-group') || field.parentElement).appendChild(message);
+
+        field.setAttribute('aria-invalid', 'true');
+        field.classList.add('is-invalid');
+        firstInvalid = firstInvalid || field;
+    });
+
+    if (firstInvalid) {
+        setStatus(statusElement, 'Please fix the highlighted fields.', 'error');
+        firstInvalid.focus();
+        return false;
+    }
+    setStatus(statusElement, '');
+    return true;
+}
+
+// Rules for every form on the site
+function subscribeRules() {
+    return [
+        { field: 'sub-email', checks: [{ test: validators.email, message: 'Enter a valid email, e.g. name@mail.com.' }] },
+        { field: 'sub-phone', checks: [{ test: validators.phone, message: 'Enter 10–15 digits, e.g. +7 700 000 00 00.' }] },
+        { field: 'sub-password', checks: [{ test: validators.password, message: 'Use 8+ characters with an uppercase letter, a lowercase letter and a digit.' }] },
+        { field: 'sub-confirm', checks: [{ test: validators.matches(() => document.getElementById('sub-password').value), message: 'Passwords do not match.' }] }
+    ];
+}
+
+function contactRules() {
+    return [
+        { field: 'contact-name', checks: [{ test: validators.minLength(2), message: 'Please enter your name (at least 2 characters).' }] },
+        { field: 'contact-email', checks: [{ test: validators.email, message: 'Enter a valid email, e.g. name@mail.com.' }] },
+        { field: 'contact-phone', checks: [{ test: validators.phone, message: 'Enter 10–15 digits, e.g. +7 700 000 00 00.' }] },
+        { field: 'contact-message', checks: [{ test: validators.minLength(5), message: 'Your message is too short (at least 5 characters).' }] }
+    ];
+}
+
+function deliveryRules() {
+    return [
+        { field: 'fullname', checks: [{ test: validators.minLength(2), message: 'Enter your name (at least 2 characters).' }] },
+        { field: 'email', checks: [{ test: validators.email, message: 'Enter a valid email, e.g. name@mail.com.' }] },
+        { field: 'phone', checks: [{ test: validators.phone, message: 'Enter 10–15 digits, e.g. +7 700 000 00 00.' }] },
+        { field: 'message', checks: [{ test: validators.minLength(10), message: 'Enter the delivery address (at least 10 characters).' }] }
+    ];
+}
+
+function signupRules() {
+    return [
+        { field: 'signup-name', checks: [{ test: validators.minLength(2), message: 'Name must be at least 2 characters.' }] },
+        { field: 'signup-email', checks: [{ test: validators.email, message: 'Enter a valid email, e.g. name@mail.com.' }] },
+        { field: 'signup-phone', checks: [{ test: validators.phone, message: 'Enter 10–15 digits, e.g. +7 700 000 00 00.' }] },
+        { field: 'signup-password', checks: [{ test: validators.password, message: 'Use 8+ characters with an uppercase letter, a lowercase letter and a digit.' }] },
+        { field: 'signup-confirm', checks: [{ test: validators.matches(() => document.getElementById('signup-password').value), message: 'Passwords do not match.' }] }
+    ];
+}
+
+function loginRules() {
+    return [
+        { field: 'login-email', checks: [{ test: validators.email, message: 'Enter a valid email, e.g. name@mail.com.' }] },
+        { field: 'login-password', checks: [{ test: value => value.length > 0, message: 'Enter your password.' }] }
+    ];
+}
+
+
+/* ---------- Accounts: sign up, log in, profile (localStorage simulation) ---------- */
+
+const USERS_KEY = 'de-users';
+const SESSION_KEY = 'de-session';
+
+function getUsers() {
+    try {
+        const users = JSON.parse(storage.get(USERS_KEY, '[]'));
+        return Array.isArray(users) ? users : [];
+    } catch (error) {
+        return [];
+    }
+}
+
+function saveUsers(users) {
+    storage.set(USERS_KEY, JSON.stringify(users));
+}
+
+// The logged-in user is found by the email saved in the session key.
+function getCurrentUser() {
+    const email = storage.get(SESSION_KEY, '');
+    return email ? getUsers().find(user => user.email === email) || null : null;
+}
+
+// SHA-256 hash, so passwords are not kept as plain text in localStorage.
+// (This is still a classroom simulation, not real backend security.)
+async function hashPassword(password) {
+    if (!window.crypto || !crypto.subtle) {
+        throw new Error('secure hashing is not available in this browser');
+    }
+    const bytes = new TextEncoder().encode(password);
+    const digest = await crypto.subtle.digest('SHA-256', bytes);
+    return Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, '0')).join('');
+}
+
+function initSignupForm() {
+    const form = document.getElementById('signup-form');
+    if (!form) return;
+    const status = document.getElementById('signup-status');
+
+    form.addEventListener('submit', async event => {
+        event.preventDefault();
+        if (!validateForm(form, signupRules(), status)) {
+            SoundFX.play('error');
+            return;
+        }
+
+        const name = document.getElementById('signup-name').value.trim();
+        const email = document.getElementById('signup-email').value.trim().toLowerCase();
+        const phone = document.getElementById('signup-phone').value.trim();
+        const password = document.getElementById('signup-password').value;
+
+        const users = getUsers();
+        if (users.some(user => user.email === email)) {
+            setStatus(status, 'An account with this email already exists. Try logging in.', 'error');
+            SoundFX.play('error');
+            return;
+        }
+
+        try {
+            const passwordHash = await hashPassword(password);
+            users.push({ name, email, phone, passwordHash, createdAt: new Date().toISOString() });
+            saveUsers(users);
+        } catch (error) {
+            setStatus(status, `Could not create the account: ${error.message}.`, 'error');
+            return;
+        }
+
+        SoundFX.play('success');
+        showToast('Account created. Please log in.', 'success');
+        setTimeout(() => { window.location.href = 'login.html'; }, 900);
+    });
+}
+
+function initLoginForm() {
+    const form = document.getElementById('login-form');
+    if (!form) return;
+    const status = document.getElementById('login-status');
+
+    form.addEventListener('submit', async event => {
+        event.preventDefault();
+        if (!validateForm(form, loginRules(), status)) {
+            SoundFX.play('error');
+            return;
+        }
+
+        const email = document.getElementById('login-email').value.trim().toLowerCase();
+        const password = document.getElementById('login-password').value;
+        const user = getUsers().find(entry => entry.email === email);
+
+        let passwordMatches = false;
+        if (user) {
+            try {
+                passwordMatches = (await hashPassword(password)) === user.passwordHash;
+            } catch (error) {
+                setStatus(status, `Could not check the password: ${error.message}.`, 'error');
+                return;
+            }
+        }
+
+        // Same message for "no such email" and "wrong password", so it does not reveal which one is wrong.
+        if (!passwordMatches) {
+            setStatus(status, 'Wrong email or password.', 'error');
+            SoundFX.play('error');
+            return;
+        }
+
+        storage.set(SESSION_KEY, user.email);
+        SoundFX.play('success');
+        showToast(`Welcome back, ${user.name}!`, 'success');
+        setTimeout(() => { window.location.href = 'profile.html'; }, 700);
+    });
+}
+
+function initProfilePage() {
+    const details = document.getElementById('profile-details');
+    if (!details) return;
+
+    const guest = document.getElementById('profile-guest');
+    const actions = document.getElementById('profile-actions');
+    const user = getCurrentUser();
+
+    if (!user) {
+        guest.hidden = false;
+        return;
+    }
+
+    document.getElementById('profile-name').textContent = user.name;
+    document.getElementById('profile-email').textContent = user.email;
+    document.getElementById('profile-phone').textContent = user.phone;
+    document.getElementById('profile-since').textContent = new Date(user.createdAt).toLocaleDateString('en-US', {
+        year: 'numeric', month: 'long', day: 'numeric'
+    });
+    details.hidden = false;
+    actions.hidden = false;
+
+    document.getElementById('logout-btn').addEventListener('click', () => {
+        storage.set(SESSION_KEY, '');
+        showToast('You are logged out', 'info');
+        setTimeout(() => { window.location.href = 'login.html'; }, 600);
+    });
+}
+
+
+/* ---------- External API: USD -> KZT rate on the pricing page ---------- */
+
+const RATE_CACHE_KEY = 'de-usd-kzt';
+
+// Accepts "210", "210.5" or "210,5" and returns a positive number, otherwise null.
+function parseAmount(text) {
+    const cleaned = text.trim().replace(',', '.');
+    if (!/^\d+(\.\d{1,2})?$/.test(cleaned)) return null;
+    const amount = Number(cleaned);
+    return amount > 0 ? amount : null;
+}
+
+async function fetchUsdToKzt() {
+    const response = await fetch('https://open.er-api.com/v6/latest/USD');
+    if (!response.ok) throw new Error(`server answered with status ${response.status}`);
+    const data = await response.json();
+    const rate = data && data.rates ? Number(data.rates.KZT) : NaN;
+    if (!rate) throw new Error('the KZT rate is missing in the response');
+    return rate;
+}
+
+function initExchangeRate() {
+    const status = document.getElementById('rate-status');
+    const amountInput = document.getElementById('usd-amount');
+    const result = document.getElementById('kzt-result');
+    const amountError = document.getElementById('converter-error');
+    if (!status || !amountInput || !result) return;
+
+    let rate = null;
+
+    const updateResult = () => {
+        const amount = parseAmount(amountInput.value);
+        amountError.hidden = amount !== null;
+        amountError.textContent = 'Enter a positive amount, e.g. 210.';
+        result.textContent = (amount === null || rate === null)
+            ? '—'
+            : Math.round(amount * rate).toLocaleString('en-US');
+    };
+
+    const showCached = reason => {
+        try {
+            const cached = JSON.parse(storage.get(RATE_CACHE_KEY, 'null'));
+            if (cached && cached.rate) {
+                rate = cached.rate;
+                const date = new Date(cached.savedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+                setStatus(status, `${reason} Showing the rate saved on ${date}: 1 USD = ${rate.toFixed(2)} KZT.`, 'error');
+                return true;
+            }
+        } catch (error) { /* no usable cache */ }
+        return false;
+    };
+
+    fetchUsdToKzt()
+        .then(liveRate => {
+            rate = liveRate;
+            storage.set(RATE_CACHE_KEY, JSON.stringify({ rate, savedAt: new Date().toISOString() }));
+            setStatus(status, `Live rate: 1 USD = ${rate.toFixed(2)} KZT.`, 'success');
+        })
+        .catch(error => {
+            if (!showCached(`Could not load the live rate (${error.message}).`)) {
+                setStatus(status, `Could not load the exchange rate (${error.message}). Please try again later.`, 'error');
+            }
+        })
+        .finally(updateResult);
+
+    amountInput.addEventListener('input', updateResult);
+}
+
+
+/* ---------- Shop filters saved in localStorage (Final project 5.3) ---------- */
+
+function saveShopFilters() {
+    storage.set('de-shop-filters', JSON.stringify({
+        category: shopState.category,
+        search: shopState.search,
+        maxPrice: shopState.maxPrice,
+        sortBy: shopState.sortBy
+    }));
+}
+
+// Reads the saved filters, checks them, and puts them back into the controls.
+function restoreShopFilters() {
+    let saved = null;
+    try {
+        saved = JSON.parse(storage.get('de-shop-filters', 'null'));
+    } catch (error) {
+        saved = null;
+    }
+    if (!saved || typeof saved !== 'object') return;
+
+    shopState.category = ['all', 'men', 'women', 'unisex'].includes(saved.category) ? saved.category : 'all';
+    shopState.search = typeof saved.search === 'string' ? saved.search : '';
+    shopState.maxPrice = Number.isFinite(saved.maxPrice) ? Math.min(Math.max(saved.maxPrice, 100), 400) : 400;
+    shopState.sortBy = ['default', 'price-asc', 'price-desc', 'name'].includes(saved.sortBy) ? saved.sortBy : 'default';
+
+    document.querySelectorAll('#category-buttons .filter-btn')
+        .forEach(button => button.classList.toggle('active', button.dataset.category === shopState.category));
+    document.getElementById('shop-search').value = shopState.search;
+    document.getElementById('price-range').value = shopState.maxPrice;
+    document.getElementById('price-output').textContent = `$${shopState.maxPrice}`;
+    document.getElementById('shop-sort').value = shopState.sortBy;
 }

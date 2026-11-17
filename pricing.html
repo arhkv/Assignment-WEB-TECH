@@ -29,6 +29,9 @@
                     <li class="nav-item"><a class="nav-link active" href="pricing.html" aria-current="page">Pricing</a></li>
                     <li class="nav-item"><a class="nav-link" href="brands.html">Brands</a></li>
                     <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="signup.html">Sign up</a></li>
+                    <li class="nav-item"><a class="nav-link" href="login.html">Log in</a></li>
+                    <li class="nav-item"><a class="nav-link" href="profile.html">Profile</a></li>
                     <li class="nav-item"><a class="nav-link" href="delivery.html">Delivery</a></li>
                 </ul>
                 </div>
@@ -96,6 +99,19 @@
             </table>
             <p id="filter-empty" class="empty-message" hidden>No fragrances match your filter.</p>
         </div>
+        <section class="card rate-box" aria-labelledby="rate-title">
+            <h2 id="rate-title">Price converter: USD to KZT</h2>
+            <p id="rate-status" class="form-status" role="status" aria-live="polite">Loading the current exchange rate...</p>
+            <form id="converter-form" class="contact-form" novalidate>
+                <div class="form-group">
+                    <label for="usd-amount">Amount in dollars:</label>
+                    <input type="text" id="usd-amount" name="usd" inputmode="decimal" placeholder="e.g. 210" value="100">
+                    <small id="converter-error" class="field-error" role="alert" hidden></small>
+                </div>
+                <p class="text-center mb-0">Approximately <strong id="kzt-result">—</strong> tenge</p>
+            </form>
+            <p class="small text-center mt-3 mb-0">Rates by <a href="https://www.exchangerate-api.com" target="_blank" rel="noopener">ExchangeRate-API</a></p>
+        </section>
     </main>
 
     <footer class="site-footer">

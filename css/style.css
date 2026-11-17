@@ -1001,3 +1001,34 @@ img.lazy-loaded { animation: lazyFade .6s ease both; }
 /* tooltip under the button inside the contact cards (so it does not cover the phone number) */
 .contact-list .copy-tip { bottom: auto; top: calc(100% + 8px); }
 .contact-list .copy-tip::after { top: auto; bottom: 100%; border-top-color: transparent; border-bottom-color: #000; }
+
+
+/* ---------- Final project: validation, accounts, exchange rate ---------- */
+.contact-form input[type="password"] {
+    width: 100%;
+    padding: 10px 12px;
+    background-color: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--line, #333);
+    border-radius: 6px;
+}
+.contact-form input[type="password"]:focus { border-color: var(--gold); outline: none; }
+.contact-form input.is-invalid { border-color: #e05252 !important; }
+.field-error { display: block; color: #e05252; font-size: 0.875rem; font-weight: 600; margin-top: 6px; }
+.form-hint { display: block; color: var(--muted); font-size: 0.85rem; margin-top: 4px; }
+.form-status.error { color: #e05252; }
+.form-status.success { color: #3fae5a; }
+.auth-card { max-width: 600px; margin: 0 auto 2rem; }
+.profile-details {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 10px 24px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+.profile-details dt { color: var(--muted); font-weight: normal; }
+.profile-details dd { margin: 0; font-weight: 600; word-break: break-word; }
+.rate-box { max-width: 600px; margin: 2rem auto; }
+[data-theme="light"] .field-error { color: #b3261e; }
+[data-theme="light"] .form-status.error { color: #b3261e; }
+[data-theme="light"] .contact-form input[type="password"] { background-color: #fff; color: var(--text); border-color: #cbbf9f; }

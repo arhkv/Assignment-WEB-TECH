@@ -96,3 +96,12 @@ jQuery 4.0.0 is loaded from the CDN in the `<head>` of every page. All jQuery co
 | 7 | Toast notifications | shop, forms, copy |
 | 8 | Copy to clipboard buttons | contact.html, delivery.html |
 | 9 | Lazy loading of images | gallery, catalogs, shop |
+
+
+## Final project
+
+- **Accounts (simulation):** `signup.html`, `login.html`, `profile.html`. Users are stored in localStorage (`de-users`) with a SHA-256 hash of the password. The session is kept in `de-session`.
+- **Form validation:** every form has checks for email format, phone pattern (10-15 digits), required fields and password complexity (8+ characters, upper and lower case letters, a digit). Messages are shown on the page. No HTML validation attributes are used; all forms have `novalidate`.
+- **Search and filter:** the shop search, category, price and sort settings are saved in localStorage (`de-shop-filters`).
+- **External API:** the pricing page shows the live USD to KZT rate from open.er-api.com, with a converter, a loading state and a fallback to the last saved rate.
+- **Other API:** the contact form sends its data with `fetch()` to jsonplaceholder.typicode.com.

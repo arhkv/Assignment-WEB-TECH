@@ -29,6 +29,9 @@
                     <li class="nav-item"><a class="nav-link" href="pricing.html">Pricing</a></li>
                     <li class="nav-item"><a class="nav-link" href="brands.html">Brands</a></li>
                     <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="signup.html">Sign up</a></li>
+                    <li class="nav-item"><a class="nav-link" href="login.html">Log in</a></li>
+                    <li class="nav-item"><a class="nav-link" href="profile.html">Profile</a></li>
                     <li class="nav-item"><a class="nav-link active" href="delivery.html" aria-current="page">Delivery</a></li>
                 </ul>
                 </div>
@@ -93,17 +96,21 @@
             <h2 class="text-center">Request Delivery</h2>
             <p class="text-center">Fill in the form and our manager will contact you to confirm the order.</p>
 
-            <form id="delivery-form" class="contact-form" action="#" method="post">
+            <form id="delivery-form" class="contact-form" action="#" method="post" novalidate>
                 <div class="form-group">
                     <label for="fullname" class="form-label">Your name:</label>
-                    <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Enter your name" required>
+                    <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Enter your name">
                 </div>
                 <div class="form-group">
                     <label for="email" class="form-label">Email:</label>
                     <div class="input-group">
                         <span class="input-group-text" id="at-sign">@</span>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="example@mail.com" aria-describedby="at-sign" required>
+                        <input type="text" class="form-control" id="email" name="email" placeholder="example@mail.com" aria-describedby="at-sign">
                     </div>
+                </div>
+                <div class="form-group">
+                    <label for="phone" class="form-label">Phone:</label>
+                    <input type="text" class="form-control" id="phone" name="phone" placeholder="+7 700 000 00 00">
                 </div>
                 <div class="form-group">
                     <label for="delivery-type" class="form-label">Delivery method:</label>
@@ -129,6 +136,7 @@
                     <label for="message" class="form-label">Order comment:</label>
                     <textarea class="form-control" id="message" name="message" rows="3" placeholder="Enter your address and any additional requests..."></textarea>
                 </div>
+                <div id="delivery-status" class="form-status" role="status" aria-live="polite"></div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-submit">Submit request</button>
                 </div>
